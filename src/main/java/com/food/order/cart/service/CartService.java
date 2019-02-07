@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,16 +20,11 @@ import com.food.order.cart.model.Product;
 import com.food.order.cart.model.Request;
 import com.food.order.cart.model.User;
 import com.food.order.cart.repository.CartRepository;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Application;
 
 @Service
 public class CartService {
 	@Autowired
 	private CartRepository cartRepository;
-	@Autowired
-	private DiscoveryClient discoveryClient;
 	
 	public Cart getCart(final String email) {
 		// TODO call login-with-email service to check if email is registered. Rename
@@ -83,7 +74,7 @@ public class CartService {
 	private List<Product> getValidProducts(List<Product> products) {
 		List<Product> validProducts = new ArrayList<>();
 		final String catalogueServiceId = "CATALOGUE";
-		List<ServiceInstance> instances = discoveryClient.getInstances(catalogueServiceId );
+		/*List<ServiceInstance> instances = discoveryClient.getInstances(catalogueServiceId );
 		if (instances == null || instances.isEmpty()) {
 			System.out.println("No instances for service: " + catalogueServiceId);
 			return validProducts;
@@ -92,12 +83,12 @@ public class CartService {
 			System.out.println("<h3>Instance: " + serviceInstance.getUri() + "</h3>" + "Host: "
 					+ serviceInstance.getHost() + "<br>" + "Port: " + serviceInstance.getPort() + "<br>");
 		} 
-		final String url = instances.get(0).getUri() + "/" + catalogueServiceId.toLowerCase();
+		final String url = instances.get(0).getUri() + "/" + catalogueServiceId.toLowerCase();*/
 		  
 		/*Application application = eurekaClient.getApplication(catalogueServiceId);
         InstanceInfo instanceInfo = application.getInstances().get(0);
         String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/catalogue";*/
-		//String url = "http://localhost:8083/catalogue";
+		String url = "http://localhost:8083/catalogue";
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
