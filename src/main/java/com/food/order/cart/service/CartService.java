@@ -88,7 +88,7 @@ public class CartService {
 		/*Application application = eurekaClient.getApplication(catalogueServiceId);
         InstanceInfo instanceInfo = application.getInstances().get(0);
         String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/catalogue";*/
-		String url = "http://localhost:8083/catalogue";
+		String url = "http://13.233.214.243:8083/catalogue";
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
