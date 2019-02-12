@@ -103,16 +103,19 @@ public class CartService {
 	    catch (Exception ex) {
 	        System.out.println("** Exception: "+ ex.getMessage());
 	    }
-		List<Product> catalogue = response.getBody();
-		
-		for(Product product : products) {
-			for(Product catalogueProduct : catalogue) {
-				if(product.getProductId().equals(catalogueProduct.getProductId())) {
-					validProducts.add(catalogueProduct);
-					break;
+		if(response != null && response.getBody() != null) {
+			List<Product> catalogue = response.getBody();
+			
+			for(Product product : products) {
+				for(Product catalogueProduct : catalogue) {
+					if(product.getProductId().equals(catalogueProduct.getProductId())) {
+						validProducts.add(catalogueProduct);
+						break;
+					}
 				}
 			}
 		}
+		
 		return validProducts;
 	}
 	
